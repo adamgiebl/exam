@@ -1,0 +1,6 @@
+bin
+include
+lib
+pyvenv.cfg
+tailwindcss/node_modules
+tailwindcss/package-lock.json

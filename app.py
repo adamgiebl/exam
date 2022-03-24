@@ -13,15 +13,18 @@ tabs = [
 ]
 
 people = [
-  {"src": "stephie.png", "name": "Stephie Jensen", "handle": "@sjensen"},
-  {"src": "monk.jpg", "name": "Adrian Monk", "handle": "@detective :)"},
-  {"src": "kevin.jpg", "name": "Kevin Hart", "handle": "@miniRock"}
+  {"img": "https://pbs.twimg.com/profile_images/1414990564408262661/r6YemvF9_400x400.jpg", "title": "GitHub", "username": "github", "verified": True },
+  {"img": "https://pbs.twimg.com/profile_images/1503591435324563456/foUrqiEw_400x400.jpg", "title": "Elon Musk", "username": "elonmusk", "verified": True },
+  {"img": "https://pbs.twimg.com/profile_images/650743198348808192/LT6SeOJr_400x400.jpg", "title": "Cory House", "username": "housecor", "verified": False }
 ]
 
 trends = [
-  {"top": "Music", "title": "We Won", "bottom": "135K Tweets"},
-  {"top": "Pop", "title": "Blue Ivy", "bottom": "40k tweets"},
-  {"top": "Trending in US", "title": "Denim Day", "bottom": "40k tweets"},
+  {"category": "Music", "title": "We Won", "tweets_count": "135K"},
+  {"category": "Pop", "title": "Blue Ivy", "tweets_count": "40k"},
+  {"category": "Trending in US", "title": "Denim Day", "tweets_count": "40k"},
+  {"category": "Music", "title": "We Won", "tweets_count": "135K"},
+  {"category": "Pop", "title": "Blue Ivy", "tweets_count": "40k"},
+  {"category": "Trending in US", "title": "Denim Day", "tweets_count": "40k"},
 ]
 
 tweets = [
@@ -45,6 +48,11 @@ def _():
   return static_file("app.css", root=".")
 
 ##############################
+@get("/app.js")
+def _():
+  return static_file("app.js", root=".")
+
+##############################
 @get("/images/<image_name>")
 def _(image_name):
   return static_file(image_name, root="./images")
@@ -53,7 +61,7 @@ def _(image_name):
 @get("/")
 @view("index")
 def _():
-  return dict(tabs=tabs, tweets=tweets)
+  return dict(tabs=tabs, tweets=tweets, trends=trends, people=people)
 
 
 
