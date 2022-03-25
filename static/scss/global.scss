@@ -1,0 +1,182 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap");
+
+@import "../node_modules/bulma/sass/utilities/_all.sass";
+@import "../node_modules/bulma/sass/elements/table.sass";
+@import "../node_modules/bulma/sass/form/_all.sass";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --offwhite: ghostwhite;
+  --main-gradient: linear-gradient(
+    335deg,
+    rgb(10, 17, 39) 0%,
+    rgb(5, 9, 22) 100%
+  );
+  --transparent-1: rgba(255, 255, 255, 0.08);
+  --transparent-2: rgba(255, 255, 255, 0.08);
+  --transparent-3: rgba(255, 255, 255, 0.2);
+  --dark: rgb(10, 17, 39);
+  --border-radius: 20px;
+  --border-radius-small: 8px;
+  --main-max-width: 1300px;
+  --blue: #3ac1ff;
+}
+
+body {
+  min-height: 100vh;
+  background: rgb(17, 30, 69);
+  background: var(--main-gradient);
+  color: ghostwhite;
+  padding-bottom: 100px;
+  font-family: "Noto Sans", sans-serif;
+}
+
+.main-container {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  align-items: start;
+  grid-gap: 20px;
+  max-width: var(--main-max-width);
+  padding: 0 30px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.header {
+  width: 100%;
+  grid-column: span 2;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: block;
+
+  svg {
+    color: var(--blue);
+    width: 30px;
+  }
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+
+  .buttons {
+    display: flex;
+    margin-left: 20px;
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
+    background: var(--transparent-1);
+    padding: 6px;
+    padding-right: 15px;
+    border-radius: 200px;
+    margin-left: 20px;
+    overflow: hidden;
+    .color {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--color);
+      margin-right: 12px;
+      background-image: linear-gradient(
+        -45deg,
+        rgb(0, 0, 0, 0.4),
+        rgb(255, 255, 255, 0.4)
+      );
+    }
+
+    .logout {
+      display: block;
+      margin-left: 10px;
+      button {
+        border: none;
+        display: block;
+        background: none;
+        cursor: pointer;
+      }
+      svg {
+        display: block;
+        width: 19px;
+        height: auto;
+        color: #7a88aa;
+      }
+    }
+  }
+
+  .button--primary {
+    margin-left: 10px;
+  }
+
+  nav a {
+    color: var(--offwhite);
+    text-decoration: none;
+    padding: 0.5em 0.6em;
+    border-radius: var(--border-radius-small);
+    transition: background 0.3s, color 0.3s;
+
+    &:hover {
+      background: var(--transparent-2);
+      color: var(--blue);
+    }
+  }
+}
+
+.content {
+  height: 1300px;
+  background: var(--transparent-1);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--transparent-2);
+  padding: 60px;
+}
+
+.form {
+  margin-top: 30px;
+  max-width: 280px;
+
+  .button--primary {
+    margin-top: 20px;
+  }
+}
+
+.table {
+  margin-top: 20px;
+  background: none;
+  color: var(--offwhite);
+
+  thead th {
+    color: var(--offwhite);
+  }
+
+  td.color {
+    width: 50px;
+    background: var(--color);
+  }
+}
+
+.has-icon {
+  display: inline-flex;
+  align-items: center;
+  svg {
+    width: 20px;
+    color: inherit;
+    margin-right: 7px;
+    display: block;
+  }
+}
+
+@import "./assets/components";
+@import "./assets/post";
+@import "./assets/post-form";
+@import "./assets/sidebar";
+@import "./assets/file-upload";

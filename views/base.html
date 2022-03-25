@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ get("title", "Title") }}</title>
+    <link rel="stylesheet" href="global.css" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  </head>
+  <body>
+    <main class="main-container">
+      <header class="header">
+        <a href="/" class="logo"
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            class="logo"
+          >
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path
+              fill="currentColor"
+              d="M7.291 20.824L2 22l1.176-5.291A9.956 9.956 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10a9.956 9.956 0 0 1-4.709-1.176zM7 12a5 5 0 0 0 10 0h-2a3 3 0 0 1-6 0H7z"
+            /></svg
+        ></a>
+        <div class="navigation">
+          % if get("user", False):  
+          <nav>
+            <a class="navbar-item has-icon" href="/">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M6.75 2.5A4.25 4.25 0 0 1 11 6.75V11H6.75a4.25 4.25 0 1 1 0-8.5zm0 10.5H11v4.25A4.25 4.25 0 1 1 6.75 13zm10.5-10.5a4.25 4.25 0 1 1 0 8.5H13V6.75a4.25 4.25 0 0 1 4.25-4.25zM13 13h4.25A4.25 4.25 0 1 1 13 17.25V13z"/></svg>
+              Posts
+            </a>
+            <a class="navbar-item has-icon" href="/users">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M20 22H4v-2a5 5 0 0 1 5-5h6a5 5 0 0 1 5 5v2zm-8-9a6 6 0 1 1 0-12 6 6 0 0 1 0 12z"/></svg>
+              Users
+            </a>
+          </nav>
+          <div class="profile">
+            <div class="color" style="--color: {{ user['hex_color'] }}"></div>
+            <span>{{ user["first_name"] }} {{ user["last_name"] }}</span>
+            <form action="/logout" method="post" class="logout">
+              <button><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M4 15h2v5h12V4H6v5H4V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6zm6-4V8l5 4-5 4v-3H2v-2h8z"/></svg></button>
+            </form>
+          </div>
+          % else:
+          <div class="buttons">
+            <a href="/login" class="button"><span>Log in</span></a>
+            <a href="/signup" class="button button--primary"
+              ><span>Sign up</span></a
+            >
+          </div>
+          % end
+        </div>
+      </header>
+      <aside class="sidebar">
+        % if get("user", False):
+          <div class="profile">
+            <div class="profile__cover" style="--color: {{ user['hex_color'] }};">
+              <div class="user-color" style="--color: {{ user['hex_color'] }}"></div>
+            </div>
+            <div class="profile__card">
+              <h2>{{ user["first_name"] }} {{ user["last_name"] }}</h2>
+              <span>{{ user['email'] }}</span>
+            </div>
+            <div class="profile__upload">
+              <form action="/upload-image" method="post" enctype="multipart/form-data">
+                <input type="file" id="my_image" name="my_image">
+                <label for="my_image" class="button-gray has-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M12.414 5H21a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h7.414l2 2zM4 5v14h16V7h-8.414l-2-2H4zm9 8v4h-2v-4H8l4-4 4 4h-3z"/></svg>
+                  <span>Upload</span>
+                </label>
+                <button style="display: none"></button>
+              </form>
+            </div>
+            <a href="/posts" class="button-gray has-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M3 10H2V4.003C2 3.449 2.455 3 2.992 3h18.016A.99.99 0 0 1 22 4.003V10h-1v10.001a.996.996 0 0 1-.993.999H3.993A.996.996 0 0 1 3 20.001V10zm16 0H5v9h14v-9zM4 5v3h16V5H4zm5 7h6v2H9v-2z"/></svg>My posts</a>
+            <button class="button-gray has-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M4 15h2v5h12V4H6v5H4V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6zm6-4V8l5 4-5 4v-3H2v-2h8z"/></svg>Log out</button>
+          </div>  
+        % end
+      </aside>

@@ -1,6 +1,10 @@
 bin
 include
+Include
+Lib
 lib
 pyvenv.cfg
+static/node_modules
 tailwindcss/node_modules
 tailwindcss/package-lock.json
+*/**/__pycache__

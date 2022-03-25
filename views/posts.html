@@ -1,0 +1,40 @@
+% import datetime
+% import timeago
+
+% now = datetime.datetime.now()
+
+% include("base", title="My Posts")
+<div class="posts-wrapper">
+  % include("post-form")
+  <section class="posts posts--editable" id="posts-container">
+    % if not posts:
+      <article class="post post--empty">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm6 9a3 3 0 0 0 6 0h5V5H4v7h5z"/></svg>
+        <span>You have no posts yet</span>
+      </article>
+    % else:
+      % for post in posts:
+      <article class="post" id="{{ post['id'] }}">
+        <div class="post__header">
+          <div class="color" style="--color: {{ post['user']['hex_color'] }}"></div>
+          <h3 class="name">{{ post["user"]["name"] }}</h3>
+          <div class="time-created" title="{{ post['createdAt'] }}">
+            {{ timeago.format(int(post["createdAt"]), now) }}
+          </div>
+        </div>
+        <div class="post__content">{{ post["content"] }}</div>
+        <div class="post__footer">
+          <div class="buttons">
+            <button class="button-gray has-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M6.414 16L16.556 5.858l-1.414-1.414L5 14.586V16h1.414zm.829 2H3v-4.243L14.435 2.322a1 1 0 0 1 1.414 0l2.829 2.829a1 1 0 0 1 0 1.414L7.243 18zM3 20h18v2H3v-2z"/></svg><span class="button--edit__label">Edit</span></button>
+            <form action="/posts/delete/{{ post['id'] }}" method="post">
+              <button class="button-gray has-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M17 6h5v2h-2v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8H2V6h5V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3zm1 2H6v12h12V8zm-9 3h2v6H9v-6zm4 0h2v6h-2v-6zM9 4v2h6V4H9z"/></svg> Remove</button>  
+            </form>
+          </div>
+        </div>
+      </article>
+      % end
+    % end
+  </section>
+  <script src="/index.js"></script>
+</div>
+% include("footer")

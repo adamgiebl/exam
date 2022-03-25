@@ -1,0 +1,60 @@
+% include("base", title="Home")
+<div class="content">
+  <h1>Sign up</h1>
+  <form action="/signup" method="post" class="form">
+    <div class="field">
+      <label for="first_name">First Name</label>
+      <div class="control">
+        <input
+          type="text"
+          name="first_name"
+          placeholder="John"
+          id="first_name"
+          class="input"
+        />
+      </div>
+    </div>
+    <div class="field">
+      <label for="last_name">Last Name</label>
+      <div class="control">
+        <input
+          type="text"
+          name="last_name"
+          id="last_name"
+          placeholder="Doe"
+          class="input"
+        />
+      </div>
+    </div>
+    <div class="field">
+      <label for="email">Email</label>
+      <div class="control">
+        <input
+          type="text"
+          name="email"
+          id="email"
+          placeholder="johndoe@email.com"
+          class="input"
+        />
+      </div>
+    </div>
+    <div class="field">
+      <label for="password">Password</label>
+      <div class="control">
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="**********"
+          class="input"
+        />
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <button class="button button--primary"><span>Sign up</span></button>
+      </div>
+    </div>
+  </form>
+</div>
+% include("footer")

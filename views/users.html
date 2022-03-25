@@ -1,0 +1,31 @@
+% include("base", title="Users")
+<div class="content">
+  <h1>Users:</h1>
+  % if not users:
+  <div class="table users">No Users</div>
+  % else:
+  <table class="table is-fullwidth users">
+    <thead>
+      <tr>
+        <th>Color</th>
+        <th>Id</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      % for user in users:
+      <tr>
+        <td class="color" style="--color: {{ user.hex_color }}"></td>
+        <td>{{ user.id }}</td>
+        <td>{{ user.first_name }}</td>
+        <td>{{ user.last_name }}</td>
+        <td>{{ user.email }}</td>
+      </tr>
+      % end
+    </tbody>
+  </table>
+  % end
+</div>
+% include("footer")

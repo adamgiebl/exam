@@ -1,0 +1,10 @@
+{
+  "files.exclude": {
+    "**/__init__.py": false,
+    "**/__pycache__": false,
+    "**/Include": false,
+    "**/Scripts": false,
+    "**/pyvenv.cfg": false,
+    "**/Lib": false
+  }
+}
