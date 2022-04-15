@@ -1,18 +1,18 @@
-from bottle import get, view, request, redirect, post, delete
-from src.globals import POSTS
-import uuid
-import datetime
+from pprint import pprint
+
+from bottle import delete, response
+from src.database.interface import DBInterface
+from src.decorators.authenticate import authenticate
+
 
 @delete("/posts/delete/<post_id>")
+@authenticate()
 def _(post_id):
-    print(post_id)
-    # VALIDATE
-    for index, item in enumerate(POSTS):
-        if item["id"] == post_id:
-            POSTS.pop(index)
-            return redirect('/posts')
-
-    print("No item found")
-
-    # No item found
-    return redirect('/posts')
+  db = DBInterface()
+  db.execute("DELETE FROM posts WHERE posts.id = ?", (post_id,))
+  
+  if (not db.exception and db.cursor.rowcount > 0):
+    return 'Deleted'
+  else:
+    response.status = 404
+    return 'Not Found'

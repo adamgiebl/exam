@@ -5,26 +5,27 @@
 % now = datetime.datetime.now()
 
 % if not is_fetch:
-  % include("base", title="Posts")
+  % include("base", title="Profile")
 % end
-<main class="posts-wrapper" data-spa_url="/" data-spa_title="Home">
-  % if get("user", False):  
-    % include("post-form")
+
+<main class="profile-wrapper" data-spa_url="/profile/{{ person['username'] }}" data-spa_title="Profile">
+  % if person:
+  <section class="card profile">
+    <div class="profile__cover" style="--color: {{ person['hex_color'] }};">
+      <div class="user-color" style="--color: {{ person['hex_color'] }}"></div>
+    </div>
+    <div class="profile__bio">
+      <div class="text">
+        <div class="name">{{ person["first_name"] }} {{ person["last_name"] }}</div>
+        <div class="username">@{{ person["username"] }}</div>
+      </div>
+    </div>
+  </section>
+  % else:
+    <h1>User not found</h1>
   % end
-  <section class="posts" id="posts-container">
-    % if not posts:
-    <article class="post post--empty">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path fill="none" d="M0 0h24v24H0z" />
-        <path
-          fill="currentColor"
-          d="M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm6 9a3 3 0 0 0 6 0h5V5H4v7h5z"
-        />
-      </svg>
-      <span>There are no posts yet</span>
-    </article>
-    % else: 
-      % for post in posts:
+  <section class="posts">
+    % for post in posts:
       <article class="post">
         <div class="post__header">
           <div
@@ -41,11 +42,10 @@
         <div class="post__content">{{ post["text"] }}</div>
         <div class="post__footer"></div>
       </article>
-      % end 
     % end
   </section>
-  <script src="/index.js"></script>
 </main>
+
 % if not is_fetch:
   % include("footer")
 % end

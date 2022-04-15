@@ -1300,7 +1300,7 @@ fieldset[disabled] .file-name, fieldset[disabled] .select select, .select fields
   --dark: rgb(10, 17, 39);
   --border-radius: 20px;
   --border-radius-small: 8px;
-  --main-max-width: 1300px;
+  --main-max-width: 1400px;
   --blue: #3ac1ff;
 }
 
@@ -1315,7 +1315,7 @@ body {
 
 .main-container {
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 290px 1fr 290px;
   align-items: start;
   grid-gap: 20px;
   max-width: var(--main-max-width);
@@ -1323,10 +1323,15 @@ body {
   margin: auto;
   margin-top: 20px;
 }
+@media only screen and (max-width: 1150px) {
+  .main-container {
+    grid-template-columns: 290px 1fr;
+  }
+}
 
 .header {
   width: 100%;
-  grid-column: span 2;
+  grid-column: 1/-1;
   height: 60px;
   display: flex;
   justify-content: space-between;
@@ -1339,6 +1344,12 @@ body {
 .logo svg {
   color: var(--blue);
   width: 30px;
+}
+
+.card {
+  background: var(--transparent-1);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--transparent-2);
 }
 
 .navigation {
@@ -1358,6 +1369,12 @@ body {
   border-radius: 200px;
   margin-left: 20px;
   overflow: hidden;
+}
+.navigation .profile .profile-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: ghostwhite;
 }
 .navigation .profile .color {
   width: 30px;
@@ -1399,7 +1416,6 @@ body {
 }
 
 .content {
-  height: 1300px;
   background: var(--transparent-1);
   border-radius: var(--border-radius);
   border: 1px solid var(--transparent-2);
@@ -1436,6 +1452,44 @@ body {
   color: inherit;
   margin-right: 7px;
   display: block;
+}
+
+.modal {
+  position: absolute;
+  background: #474747;
+  max-width: 300px;
+  width: 100%;
+  color: white;
+}
+
+.modal button {
+  position: absolute;
+  top: 0px;
+  right: 5px;
+  color: white;
+  padding: 10px;
+  display: block;
+  text-decoration: none;
+}
+
+.spa-modal-overlay {
+  z-index: 10;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.spa-modal-close-layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .button {
@@ -1534,6 +1588,7 @@ body {
 .button-gray {
   border: none;
   background: none;
+  position: relative;
   cursor: pointer;
   margin: auto;
   margin-bottom: 10px;
@@ -1546,6 +1601,27 @@ body {
   transition: background 0.3s, color 0.3s;
   background: var(--transparent-2);
 }
+.button-gray--follow {
+  border: 0;
+  border-radius: var(--border-radius-small);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  font-family: inherit;
+  font-size: 14px;
+  justify-content: center;
+  line-height: 1em;
+  max-width: 100%;
+  padding: 10px 12px;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 0.15s;
+  margin-bottom: 0;
+}
 .button-gray:hover {
   color: var(--blue);
   background: #252833;
@@ -1553,6 +1629,53 @@ body {
 
 .button--edit.active svg {
   color: var(--blue);
+}
+
+.loader {
+  display: none;
+}
+
+.loading span {
+  visibility: hidden;
+}
+.loading .loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -47%);
+  display: block;
+}
+.loading svg {
+  width: 1.25em;
+  transform-origin: center;
+  animation: rotate4 2s linear infinite;
+}
+.loading circle {
+  fill: none;
+  stroke: #3189fc;
+  stroke-width: 7;
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: dash4 1.5s ease-in-out infinite;
+}
+@keyframes rotate4 {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes dash4 {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dashoffset: -125px;
+  }
 }
 
 .posts {
@@ -1590,6 +1713,9 @@ body {
 }
 .posts .post__content {
   padding: 10px 20px 10px 50px;
+}
+.posts .post__content span {
+  color: var(--blue);
 }
 .posts .post__textarea {
   padding: 10px 20px 10px 50px;
@@ -1728,4 +1854,105 @@ body {
   height: 0;
   overflow: hidden;
   width: 0;
+}
+
+.people-wrapper--mobile {
+  display: none;
+  margin-top: 20px;
+}
+@media only screen and (max-width: 1150px) {
+  .people-wrapper--mobile {
+    display: block;
+  }
+  .people-wrapper--desktop {
+    display: none;
+  }
+}
+
+.people {
+  min-height: 200px;
+  background: var(--transparent-1);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--transparent-2);
+  overflow: hidden;
+  padding: 20px;
+}
+.people__heading {
+  margin-bottom: 25px;
+  font-size: 20px;
+}
+.people__link {
+  font-size: 14px;
+  color: var(--blue);
+  text-decoration: none;
+}
+.people .person {
+  display: flex;
+  margin-bottom: 15px;
+  align-items: center;
+}
+.people .person .color {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color);
+  margin-right: 12px;
+  background-image: linear-gradient(-45deg, rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.4));
+}
+.people .person .text {
+  flex-grow: 1;
+}
+.people .person .text .name {
+  font-weight: 700;
+  font-size: 18px;
+  color: ghostwhite;
+  text-decoration: none;
+}
+.people .person .text .username {
+  color: var(--transparent-3);
+  font-size: 14px;
+}
+
+.profile-wrapper .profile {
+  width: 100%;
+  overflow: hidden;
+}
+.profile-wrapper .profile__cover {
+  width: 100%;
+  height: 120px;
+  position: relative;
+  margin-bottom: 35px;
+  background: var(--transparent-1);
+  background-color: var(--transparent-3);
+  background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='rgb(10, 17, 39)' fill-opacity='0.4'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.profile-wrapper .profile__cover .user-color {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--color);
+  margin-right: 10px;
+  flex-shrink: 0;
+  background-image: linear-gradient(-45deg, rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.4));
+  bottom: -80px;
+  left: 40px;
+}
+.profile-wrapper .profile__bio {
+  padding-left: 190px;
+  padding-bottom: 40px;
+}
+.profile-wrapper .profile__bio .name {
+  font-weight: 700;
+  font-size: 28px;
+  color: ghostwhite;
+  text-decoration: none;
+}
+.profile-wrapper .profile__bio .email,
+.profile-wrapper .profile__bio .username {
+  color: var(--transparent-3);
+  font-size: 17px;
+}
+.profile-wrapper .posts {
+  margin-top: 20px;
 }

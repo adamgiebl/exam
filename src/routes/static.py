@@ -1,19 +1,21 @@
 from bottle import get, static_file
 
 
-@get("/app.css")
-def _():
-  return static_file("app.css", root=".")
-
-
 @get("/app.js")
 def _():
-  return static_file("app.js", root=".")
+  return static_file("/static/js/app.js", root=".")
 
+@get("/spa.js")
+def _():
+  return static_file("/static/js/spa.js", root=".")
 
 @get("/images/<image_name>")
 def _(image_name):
   return static_file(image_name, root="./images")
+
+@get("/tailwind.css")
+def _():
+    return static_file("/static/css/tailwind.css", root=".")
 
 @get("/global.css")
 def _():

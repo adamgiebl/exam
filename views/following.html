@@ -1,0 +1,31 @@
+% import datetime
+% import timeago
+
+% now = datetime.datetime.now()
+
+
+% if not is_fetch:
+  % include("base", title="Following")
+% end
+
+<div class="spa-modal-overlay">
+  <button class="spa-modal-close-layer" onclick="spa(document.referrer);"></button>
+  <main class="modal modal-following" data-spa_url="/following" data-spa_title="My Posts" data-spa_modal>
+    <section class="people">
+      <h2 class="people__heading">Following</h2>
+      % for person in users:
+        <article class="person">
+          <div class="color" style="--color: {{ person['hex_color'] }}"></div>
+          <div class="text">
+            <a class="name" href="/profile/{{ person['username'] }}" onclick="spa(document.referrer); return false" >{{ person["first_name"] }} {{ person["last_name"] }}</a>
+            <div class="username">@{{ person["username"] }}</div>
+          </div>
+        </article>
+      % end
+    </section>
+  </main>
+</div>
+
+% if not is_fetch:
+  % include("footer")
+% end

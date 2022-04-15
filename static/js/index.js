@@ -1,9 +1,11 @@
 const form = document.querySelector("#post-form");
 //const fakePostsContainer = document.querySelector("#fake-posts-container");
 const postsContainer = document.querySelector("#posts-container");
-const postTemplate = document.querySelector("#post-template").content;
+const postTemplate =
+  document.querySelector("#post-template") &&
+  document.querySelector("#post-template").content;
 
-if (postsContainer) {
+if (postsContainer && form) {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const formData = new FormData(form);
@@ -33,6 +35,7 @@ if (postsContainer) {
 
           const buttonLabel = postClone.querySelector(".button--edit__label");
           const buttonEdit = postClone.querySelector(".button--edit");
+          const buttonDelete = postClone.querySelector(".button--delete");
 
           buttonEdit.addEventListener("click", (e) => {
             buttonLabel.textContent = "Save";
@@ -41,11 +44,21 @@ if (postsContainer) {
             postTextarea.parentElement.style.display = "block";
           });
 
-          postClone.querySelector("form").action = `/posts/delete/${postId}`;
+          buttonDelete.addEventListener("click", async (e) => {
+            const response = await fetch(`/posts/delete/${postId}`, {
+              method: "DELETE",
+            });
+
+            if (response.ok) {
+              document.querySelector(`[id='${postId}']`).remove();
+            }
+          });
 
           postsContainer.prepend(postClone);
 
           form.reset();
+
+          highlightHashtags();
 
           animate(postElement);
         }
@@ -56,13 +69,20 @@ if (postsContainer) {
   });
 } else {
   console.log("No posts container");
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const formData = new FormData(form);
-    fetch(form.action, { method: "post", body: formData }).then(() => {
-      document.location.reload();
+  form &&
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      fetch(form.action, {
+        method: "post",
+        body: JSON.stringify(Object.fromEntries(formData)),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(() => {
+        document.location.reload();
+      });
     });
-  });
 }
 
 const animate = (postElement) => {
@@ -98,3 +118,14 @@ const animate = (postElement) => {
     postsContainer.style.transform = `translate(0, 0)`;
   });
 };
+
+const highlightHashtags = () => {
+  document.querySelectorAll(".post__content").forEach((el) => {
+    el.innerHTML = el.textContent.replace(
+      /(^|\W)(#.*?(?= #|$))/gi,
+      "$1<span>$2</span>"
+    );
+  });
+};
+
+highlightHashtags();

@@ -8,10 +8,14 @@ def validate(Schema):
   def decorator(func):
     def inner(*args, **kwargs):
       schema = Schema()
-      pprint("Here:")
-      pprint(request.json)
+      if (bool(request.json)):
+        source = request.json
+      elif (bool(request.forms)):
+        source = request.forms
+      else:
+        source = None
       try:
-        result = schema.load(request.json)
+        request.validated_data = schema.load(source)
       except ValidationError as err:
         pprint(err.messages)
         response.status = 400

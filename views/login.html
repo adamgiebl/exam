@@ -1,5 +1,7 @@
-% include("base", title="Twitter - Log in")
-<div class="content">
+% if not is_fetch:
+  % include("base", title="Twitter - Log in")
+% end
+<main class="content" data-spa_url="/login" data-spa_title="Login">
   <h1>Log in</h1>
   <form action="/login" method="post" class="form">
     <div class="field">
@@ -32,5 +34,7 @@
       </div>
     </div>
   </form>
-</div>
-% include("footer")
+</main>
+% if not is_fetch:
+  % include("footer")
+% end

@@ -1,0 +1,70 @@
+.people-wrapper {
+  &--mobile {
+    display: none;
+    margin-top: 20px;
+  }
+
+  @media only screen and (max-width: 1150px) {
+    &--mobile {
+      display: block;
+    }
+
+    &--desktop {
+      display: none;
+    }
+  }
+}
+
+.people {
+  min-height: 200px;
+  background: var(--transparent-1);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--transparent-2);
+  overflow: hidden;
+  padding: 20px;
+
+  &__heading {
+    margin-bottom: 25px;
+    font-size: 20px;
+  }
+
+  &__link {
+    font-size: 14px;
+    color: var(--blue);
+    text-decoration: none;
+  }
+
+  .person {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: center;
+    .color {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--color);
+      margin-right: 12px;
+      background-image: linear-gradient(
+        -45deg,
+        rgb(0, 0, 0, 0.4),
+        rgb(255, 255, 255, 0.4)
+      );
+    }
+
+    .text {
+      flex-grow: 1;
+
+      .name {
+        font-weight: 700;
+        font-size: 18px;
+        color: ghostwhite;
+        text-decoration: none;
+      }
+
+      .username {
+        color: var(--transparent-3);
+        font-size: 14px;
+      }
+    }
+  }
+}

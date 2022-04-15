@@ -1,7 +1,21 @@
-% include("base", title="Home")
-<div class="content">
+% if not is_fetch:
+  % include("base", title="Home")
+% end
+<main class="content" data-spa_url="/signup" data-spa_title="Sign up">
   <h1>Sign up</h1>
   <form action="/signup" method="post" class="form">
+    <div class="field">
+      <label for="username">Username</label>
+      <div class="control">
+        <input
+          type="text"
+          name="username"
+          placeholder="johndoe"
+          id="username"
+          class="input"
+        />
+      </div>
+    </div>
     <div class="field">
       <label for="first_name">First Name</label>
       <div class="control">
@@ -55,6 +69,13 @@
         <button class="button button--primary"><span>Sign up</span></button>
       </div>
     </div>
+    % if get('error', '') == "already_exists":
+        <span>
+          This username or email address already exists
+        </span>
+      % end 
   </form>
-</div>
-% include("footer")
+</main>
+% if not is_fetch:
+  % include("footer")
+% end

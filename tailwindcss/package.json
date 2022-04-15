@@ -5,7 +5,7 @@
     "tailwindcss": "^3.0.23"
   },
   "scripts": {
-    "watch": "npx tailwindcss -i tailwindcss.css -o ../app.css --watch",
-    "minify": "npx tailwindcss -i tailwindcss.css -o ../final.css --minify"
+    "watch": "npx tailwindcss -i tailwindcss.css -o ../static/css/tailwind.css --watch",
+    "minify": "npx tailwindcss -i tailwindcss.css -o ../static/css/final.css --minify"
   }
 }

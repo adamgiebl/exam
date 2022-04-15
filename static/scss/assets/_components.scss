@@ -105,6 +105,7 @@
 .button-gray {
   border: none;
   background: none;
+  position: relative;
   cursor: pointer;
   margin: auto;
   margin-bottom: 10px;
@@ -117,6 +118,28 @@
   transition: background 0.3s, color 0.3s;
   background: var(--transparent-2);
 
+  &--follow {
+    border: 0;
+    border-radius: var(--border-radius-small);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    font-family: inherit;
+    font-size: 14px;
+    justify-content: center;
+    line-height: 1em;
+    max-width: 100%;
+    padding: 10px 12px;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: transform 0.15s;
+    margin-bottom: 0;
+  }
+
   &:hover {
     color: var(--blue);
     background: #252833;
@@ -126,5 +149,61 @@
 .button--edit.active {
   svg {
     color: var(--blue);
+  }
+}
+
+.loader {
+  display: none;
+}
+
+.loading {
+  span {
+    visibility: hidden;
+  }
+
+  .loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -47%);
+    display: block;
+  }
+
+  svg {
+    width: 1.25em;
+    transform-origin: center;
+    animation: rotate4 2s linear infinite;
+  }
+
+  circle {
+    fill: none;
+    stroke: hsl(214, 97%, 59%);
+    stroke-width: 7;
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    animation: dash4 1.5s ease-in-out infinite;
+  }
+
+  @keyframes rotate4 {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes dash4 {
+    0% {
+      stroke-dasharray: 1, 200;
+      stroke-dashoffset: 0;
+    }
+
+    50% {
+      stroke-dasharray: 90, 200;
+      stroke-dashoffset: -35px;
+    }
+
+    100% {
+      stroke-dashoffset: -125px;
+    }
   }
 }

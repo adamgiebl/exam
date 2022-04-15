@@ -1,0 +1,23 @@
+% if get("people", False):
+<aside class="people">
+  <h2 class="people__heading">Who to follow</h2>
+  % for person in people:
+    <article class="person">
+      <div class="color" style="--color: {{ person['hex_color'] }}"></div>
+      <div class="text">
+        <a class="name" href="/profile/{{ person['username'] }}" onclick="spa(this); return false" >{{ person["first_name"] }} {{ person["last_name"] }}</a>
+        <div class="username">@{{ person["username"] }}</div>
+      </div>
+      % if get("user", False):  
+        <button class="button-gray button-gray--follow" onclick="follow(this)" data-username="{{ person['username'] }}">
+          <span>Follow</span> 
+          <div class="loader"><svg  viewBox="25 25 50 50">
+            <circle r="20" cy="50" cx="50"></circle>
+          </svg></div>
+        </button>
+      % end
+    </article>
+  % end
+  <a class="people__link" href="#">Show more</a>
+</aside>
+% end

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "sass-dev": "sass --watch --update --no-source-map --style=expanded scss:css",
+    "start": "sass --watch --update --no-source-map --style=expanded scss:css",
     "sass-prod": "sass --no-source-map --style=compressed scss:css"
   },
   "author": "",

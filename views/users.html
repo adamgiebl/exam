@@ -1,5 +1,7 @@
-% include("base", title="Users")
-<div class="content">
+% if not is_fetch:
+  % include("base", title="Users")
+% end
+<main class="content" data-spa_url="/users" data-spa_title="All users">
   <h1>Users:</h1>
   % if not users:
   <div class="table users">No Users</div>
@@ -8,7 +10,6 @@
     <thead>
       <tr>
         <th>Color</th>
-        <th>Id</th>
         <th>First Name</th>
         <th>Last Name</th>
         <th>Email</th>
@@ -17,15 +18,16 @@
     <tbody>
       % for user in users:
       <tr>
-        <td class="color" style="--color: {{ user.hex_color }}"></td>
-        <td>{{ user.id }}</td>
-        <td>{{ user.first_name }}</td>
-        <td>{{ user.last_name }}</td>
-        <td>{{ user.email }}</td>
+        <td class="color" style="--color: {{ user['hex_color'] }}"></td>
+        <td>{{ user['first_name'] }}</td>
+        <td>{{ user['last_name'] }}</td>
+        <td>{{ user['email'] }}</td>
       </tr>
       % end
     </tbody>
   </table>
   % end
-</div>
-% include("footer")
+</main>
+% if not is_fetch:
+  % include("footer")
+% end
