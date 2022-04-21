@@ -7,6 +7,10 @@
       <div class="profile__card">
         <h2>{{ user["first_name"] }} {{ user["last_name"] }}</h2>
         <span>{{ user['email'] }}</span>
+        <div class="follow">
+          <a href="/following" onclick="spa(this); return false">Following</a>
+          <a href="/followers" onclick="spa(this); return false">Followers</a>
+        </div>
       </div>
       <div class="profile__upload">
         <form action="/upload-image" method="post" enctype="multipart/form-data">
