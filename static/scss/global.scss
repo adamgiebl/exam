@@ -111,6 +111,8 @@ body {
         rgb(0, 0, 0, 0.4),
         rgb(255, 255, 255, 0.4)
       );
+      background-image: var(--url);
+      background-size: cover;
     }
 
     .logout {
@@ -196,6 +198,7 @@ body {
   max-width: 300px;
   width: 100%;
   color: white;
+  margin-top: 13vh;
 }
 
 .modal button {
@@ -216,7 +219,7 @@ body {
   width: 100vw;
   height: 100vh;
   display: grid;
-  place-items: center;
+  justify-items: center;
   background: rgba(0, 0, 0, 0.5);
 }
 
@@ -226,6 +229,12 @@ body {
   top: 0;
   width: 100%;
   height: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
 
 @import "./assets/components";

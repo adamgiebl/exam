@@ -28,6 +28,10 @@ async function spa(spaURL, replace_state = true) {
     html = await response.text();
     console.log("HTML from server", { html: html });
 
+    if (response.status === 404) {
+      spa("/404");
+    }
+
     const newPage = { cachedAt: Date.now(), html: html, url: spaURL };
 
     if (cachedPage) {

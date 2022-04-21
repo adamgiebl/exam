@@ -12,7 +12,7 @@ def _():
   db = DBInterface()
 
   query = """SELECT followers.followee_id, followers.follower_id, user.username, user.hex_color, user.first_name, user.last_name FROM users user
-  JOIN followers WHERE followers.follower_id = ? AND followers.followee_id = user.id"""
+  JOIN followers WHERE followers.followee_id = ? AND followers.follower_id = user.id"""
 
   people = db.fetch_all(query, (request.user["id"],))
 

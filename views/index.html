@@ -29,11 +29,11 @@
         <div class="post__header">
           <div
             class="color"
-            style="--color: {{ post['hex_color'] }}"
+            style="--color: {{ post['hex_color'] }}; --url: url('/images/{{ post['image'] }}')"
           ></div>
-          <h3 class="name">
+          <a class="name" href="/profile/{{ post['username'] }}" onclick="spa(this); return false">
             {{ post["first_name"] }} {{ post["last_name"] }}
-          </h3>
+          </a>
           <div class="time-created" title="{{ post['created_at'] }}">
             {{ timeago.format(int(post["created_at"]), now) }}
           </div>

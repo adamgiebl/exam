@@ -11,7 +11,7 @@ def _():
 
 @get("/images/<image_name>")
 def _(image_name):
-  return static_file(image_name, root="./images")
+  return static_file(image_name, root="./static/images")
 
 @get("/tailwind.css")
 def _():

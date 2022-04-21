@@ -1,1 +1,10 @@
-Uppsss
+% if not is_fetch:
+  % include("base", title="Not found")
+% end
+<main class="content" data-spa_url="/404" data-spa_title="Not found">
+  <h1>404 Page not found</h1>
+</main>
+% if not is_fetch:
+  % include("footer")
+% end
+

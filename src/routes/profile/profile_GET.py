@@ -13,7 +13,7 @@ from src.decorators.is_fetch import is_fetch
 def _(username):
   db = DBInterface()
 
-  query_user_posts = """SELECT post.text, post.created_at, user.last_name, user.username, user.first_name, user.hex_color
+  query_user_posts = """SELECT post.id, post.text, post.created_at, user.last_name, user.username, user.first_name, user.hex_color, user.image
   FROM posts post
   JOIN users user WHERE user.id = post.user_id AND user.username = ?
   ORDER BY post.created_at DESC
@@ -28,9 +28,6 @@ def _(username):
   query_users = "SELECT * FROM users"
 
   users = db.fetch_all(query_users)
-
-  print(posts)
-  print(person)
 
   if (db.exception):
     print(db.exception)

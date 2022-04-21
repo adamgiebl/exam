@@ -14,7 +14,7 @@ def _():
 
   db = DBInterface()
 
-  query_posts_users = """SELECT post.text, post.created_at, user.last_name ,user.first_name, user.hex_color
+  query_posts_users = """SELECT post.text, post.created_at, user.last_name ,user.first_name, user.image, user.hex_color, user.username
   FROM posts post
   JOIN users user WHERE user.id = post.user_id
   ORDER BY post.created_at DESC"""

@@ -5,24 +5,13 @@
         <div class="user-color" style="--color: {{ user['hex_color'] }}"></div>
       </div>
       <div class="profile__card">
-        <h2>{{ user["first_name"] }} {{ user["last_name"] }}</h2>
+        <a href="/profile/{{ user['username'] }}" onclick="spa(this); return false"><h2>{{ user["first_name"] }} {{ user["last_name"] }}</h2></a>
         <span>{{ user['email'] }}</span>
         <div class="follow">
-          <a href="/following" onclick="spa(this); return false">Following</a>
-          <a href="/followers" onclick="spa(this); return false">Followers</a>
+          <a href="/following" class="link" onclick="spa(this); return false">Following</a> | 
+          <a href="/followers" class="link" onclick="spa(this); return false">Followers</a>
         </div>
       </div>
-      <div class="profile__upload">
-        <form action="/upload-image" method="post" enctype="multipart/form-data">
-          <input type="file" id="my_image" name="my_image">
-          <label for="my_image" class="button-gray has-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M12.414 5H21a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h7.414l2 2zM4 5v14h16V7h-8.414l-2-2H4zm9 8v4h-2v-4H8l4-4 4 4h-3z"/></svg>
-            <span>Upload</span>
-          </label>
-          <button style="display: none"></button>
-        </form>
-      </div>
-      <a href="/posts" onclick="spa(this); return false" class="button-gray has-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M3 10H2V4.003C2 3.449 2.455 3 2.992 3h18.016A.99.99 0 0 1 22 4.003V10h-1v10.001a.996.996 0 0 1-.993.999H3.993A.996.996 0 0 1 3 20.001V10zm16 0H5v9h14v-9zM4 5v3h16V5H4zm5 7h6v2H9v-2z"/></svg>My posts</a>
       <button class="button-gray has-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M4 15h2v5h12V4H6v5H4V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6zm6-4V8l5 4-5 4v-3H2v-2h8z"/></svg>Log out</button>
     </div>  
   % end
