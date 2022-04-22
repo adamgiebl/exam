@@ -28,6 +28,8 @@
           rgb(0, 0, 0, 0.4),
           rgb(255, 255, 255, 0.4)
         );
+        background-image: var(--url);
+        background-size: cover;
 
         bottom: -38px;
         left: 50%;

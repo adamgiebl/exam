@@ -1,0 +1,41 @@
+<div class="spa-modal-overlay file-modal" style="display:none">
+  <div class="spa-modal-close-layer" onclick="closeFileModal()"></div>
+  <form action="/upload-image" method="post" enctype="multipart/form-data" id="uploadArea" class="content modal upload-area">
+    <!-- Header -->
+    <div class="upload-area__header">
+      <h1 class="upload-area__title">Upload your file</h1>
+      <p class="upload-area__paragraph">
+        File should be an 
+        <strong class="upload-area__tooltip">
+          image
+          <span class="upload-area__tooltip-data"></span>
+        </strong>
+      </p>
+    </div>
+
+    <div id="dropZone" class="upload-area__drop-zone drop-zone" ondrop="onDrop(this); return false" onclick="onClick(this); return false">
+      <span class="drop-zone__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M12.414 5H21a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h7.414l2 2zM4 5v14h16V7h-8.414l-2-2H4zm7 7V9h2v3h3v2h-3v3h-2v-3H8v-2h3z"/></svg>
+      </span>
+      <p class="drop-zone__paragraph">Drop your file here or Click to browse</p>
+      <span id="loadingText" class="drop-zone__loading-text">Please Wait</span>
+      <img src="" alt="Preview Image" id="previewImage" class="drop-zone__preview-image" draggable="false">
+      
+    </div>
+    <input type="file" id="fileInput" name="my_image" class="drop-zone__file-input" accept="image/*" onchange="onChange(this); return false">
+
+    <!-- File Details -->
+    <div id="fileDetails" class="upload-area__file-details file-details">
+      <h3 class="file-details__title">Uploaded Image</h3>
+
+      <div id="uploadedFile" class="uploaded-file">
+        <div id="uploadedFileInfo" class="uploaded-file__info">
+          <span class="uploaded-file__name">Project 1</span>
+          <span class="uploaded-file__counter">0%</span>
+        </div>
+      </div>
+      <button class="button"><span>Confirm</span></button>
+    </div>
+    <!-- End File Details -->
+  </form>
+</div>

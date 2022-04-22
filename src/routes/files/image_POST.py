@@ -55,6 +55,6 @@ def _():
     print(db.exception)
     response.status = 500
     return "Something went wrong"
-
+  
   # SUCCESS
-  return redirect(f'/profile/{request.user["username"]}')
+  return redirect(f'/profile/{request.user["username"]}?reload-jwt=true')

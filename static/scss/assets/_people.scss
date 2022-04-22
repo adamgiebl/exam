@@ -17,7 +17,7 @@
 
 .people {
   min-height: 200px;
-  background: #191c29;
+  background: var(--grey);
   border-radius: var(--border-radius);
   border: 1px solid var(--transparent-2);
   overflow: hidden;

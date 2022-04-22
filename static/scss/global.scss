@@ -25,6 +25,7 @@
   --border-radius-small: 8px;
   --main-max-width: 1400px;
   --blue: #3ac1ff;
+  --grey: #191c29;
 }
 
 body {
@@ -179,6 +180,9 @@ body {
   td.color {
     width: 50px;
     background: var(--color);
+    background-image: var(--url);
+    background-size: contain;
+    background-repeat: no-repeat;
   }
 }
 
@@ -201,7 +205,7 @@ body {
   margin-top: 13vh;
 }
 
-.modal button {
+.modal > button {
   position: absolute;
   top: 0px;
   right: 5px;

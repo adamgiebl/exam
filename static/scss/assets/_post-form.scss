@@ -1,5 +1,5 @@
 .post-form {
-  background: #191c29;
+  background: var(--grey);
   border-radius: var(--border-radius);
   border: 1px solid var(--transparent-2);
   padding: 20px;
@@ -20,6 +20,8 @@
       rgb(0, 0, 0, 0.4),
       rgb(255, 255, 255, 0.4)
     );
+    background-image: var(--url);
+    background-size: cover;
   }
 
   form {

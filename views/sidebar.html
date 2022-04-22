@@ -1,8 +1,8 @@
 <aside class="sidebar">
   % if get("user", False):
     <div class="profile">
-      <div class="profile__cover" style="--color: {{ user['hex_color'] }};">
-        <div class="user-color" style="--color: {{ user['hex_color'] }}"></div>
+      <div class="profile__cover">
+        <div class="user-color" style="--color: {{ user['hex_color'] }}; --url: url('/images/{{ user['image'] }}')"></div>
       </div>
       <div class="profile__card">
         <a href="/profile/{{ user['username'] }}" onclick="spa(this); return false"><h2>{{ user["first_name"] }} {{ user["last_name"] }}</h2></a>

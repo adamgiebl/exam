@@ -15,7 +15,7 @@
       <h2 class="people__heading">Following</h2>
       % for person in users:
         <article class="person">
-          <div class="color" style="--color: {{ person['hex_color'] }}"></div>
+          <div class="color" style="--color: {{ person['hex_color'] }}; --url: url('/images/{{ person['image'] }}')"></div>
           <div class="text">
             <a class="name" href="/profile/{{ person['username'] }}" onclick="spa(document.referrer); return false" >{{ person["first_name"] }} {{ person["last_name"] }}</a>
             <div class="username">@{{ person["username"] }}</div>

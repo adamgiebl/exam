@@ -13,22 +13,17 @@
   <section class="card profile">
     <div class="profile__cover">
       <div class="profile__upload" style="--color: {{ person['hex_color'] }}; --url: url('/images/{{ person['image'] }}')">
-        <form action="/upload-image" method="post" enctype="multipart/form-data">
-          <input type="file" id="my_image" name="my_image">
-          <label for="my_image" class="upload-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M12.414 5H21a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h7.414l2 2zM4 5v14h16V7h-8.414l-2-2H4zm9 8v4h-2v-4H8l4-4 4 4h-3z"/></svg>
-            <div>Change</div>
-            <button>Confirm</button>
-          </label>
-          
-        </form>
       </div>
+      
     </div>
     <div class="profile__bio">
       <div class="text">
         <div class="name">{{ person["first_name"] }} {{ person["last_name"] }}</div>
         <div class="username">@{{ person["username"] }}</div>
       </div>
+      % if get("user") and user["username"] == person["username"]:
+        <button class="button-gray" onclick="openFileModal()">Change profile picture</button>
+      % end
     </div>
   </section>
   % else:
@@ -44,7 +39,7 @@
       % for post in posts:
         <article class="post" id="{{ post['id'] }}">
           <div class="post__header">
-            <div class="color" style="--color: {{ post['hex_color'] }}"></div>
+            <div class="color" style="--color: {{ post['hex_color'] }}; --url: url('/images/{{ post['image'] }}')"></div>
             <a class="name" href="/profile/{{ post['username'] }}" onclick="spa(this); return false">{{ post["first_name"] }} {{ post["last_name"] }}</a>
             <div class="time-created" title="{{ post['created_at'] }}">
               {{ timeago.format(int(float(post["created_at"])), now) }}
@@ -61,7 +56,9 @@
       % end
     % end
   </section>
+  % include("file-upload")
 </main>
+
 
 % if not is_fetch:
   % include("footer")

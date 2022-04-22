@@ -11,7 +11,7 @@ from src.decorators.is_fetch import is_fetch
 def _():
   db = DBInterface()
 
-  query = """SELECT followers.followee_id, followers.follower_id, user.username, user.hex_color, user.first_name, user.last_name FROM users user
+  query = """SELECT followers.followee_id, followers.follower_id, user.username, user.image, user.hex_color, user.first_name, user.last_name FROM users user
   JOIN followers WHERE followers.follower_id = ? AND followers.followee_id = user.id"""
 
   people = db.fetch_all(query, (request.user["id"],))

@@ -1,5 +1,5 @@
 <section class="post-form">
-  <div class="user-color" style="--color: {{ user['hex_color'] }}"></div>
+  <div class="user-color" style="--color: {{ user['hex_color'] }}; --url: url('/images/{{ user['image'] }}')"></div>
   <form action="/posts" method="post" id="post-form">
     <div class="field">
       <div class="control">

@@ -1,9 +1,8 @@
-from urllib import response
-
-from bottle import get, request, view
+from bottle import get, request, response, view
 from src.database.interface import DBInterface
 from src.decorators.authenticate import authenticate
 from src.decorators.is_fetch import is_fetch
+from src.utils import encode_jwt, without_keys
 
 
 @get("/profile/<username>")
@@ -13,7 +12,9 @@ from src.decorators.is_fetch import is_fetch
 def _(username):
   db = DBInterface()
 
-  query_user_posts = """SELECT post.id, post.text, post.created_at, user.last_name, user.username, user.first_name, user.hex_color, user.image
+  user = request.user
+
+  query_user_posts = """SELECT post.id, post.text, post.created_at, user.last_name, user.image, user.username, user.first_name, user.hex_color, user.image
   FROM posts post
   JOIN users user WHERE user.id = post.user_id AND user.username = ?
   ORDER BY post.created_at DESC
@@ -27,14 +28,26 @@ def _(username):
 
   query_users = "SELECT * FROM users"
 
-  users = db.fetch_all(query_users)
+  users = db.fetch_all(query_users, close_connection=False)
 
-  if (db.exception):
-    print(db.exception)
-    response.status = 500
-    return "Something went wrong"
+  print(request.query.get('reload-jwt', None))
+  if (request.query.get('reload-jwt', None)):
+    print("Generating new JWT")
+    query = "SELECT * FROM users user WHERE user.id = ?"
+    user = db.fetch_one(query, (request.user["id"],))
+
+    if (bool(user)):
+      user_without_password = without_keys(user, {'password'})
+      encoded_jwt = encode_jwt(user_without_password)
+      response.set_cookie("jwt", encoded_jwt)
+      user = user_without_password
+
+    if (db.exception):
+      print(db.exception)
+      response.status = 500
+      return "Something went wrong"
   
   if (bool(request.user)):
-    return dict(posts=posts, user=request.user, people=users, person=person, is_fetch=request.is_fetch)
+    return dict(posts=posts, user=user, people=users, person=person, is_fetch=request.is_fetch)
   else:
     return dict(posts=posts, person=person, people=users, is_fetch=request.is_fetch)
