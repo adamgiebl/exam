@@ -8,6 +8,24 @@
     padding: 20px;
     margin-bottom: 20px;
 
+    .button--confirm {
+      display: none;
+    }
+
+    &.edit-mode {
+      .post__content {
+        display: none;
+
+        &--edit {
+          display: block;
+        }
+      }
+
+      .button--confirm {
+        display: flex;
+      }
+    }
+
     &__header {
       display: grid;
       grid-template-columns: auto auto;
@@ -15,12 +33,16 @@
       align-items: center;
       column-gap: 12px;
 
+      .image {
+        grid-row: span 2;
+      }
+
       .color {
         width: 40px;
         height: 40px;
         border-radius: 50%;
         background: var(--color);
-        grid-row: span 2;
+
         background-image: linear-gradient(
           -45deg,
           rgb(0, 0, 0, 0.4),
@@ -42,7 +64,19 @@
     }
 
     &__content {
-      padding: 10px 20px 10px 50px;
+      margin: 10px 20px 10px 50px;
+
+      &--edit {
+        display: none;
+        padding: 10px 15px;
+        border-radius: var(--border-radius-small);
+        width: calc(100% - 60px);
+
+        &:focus {
+          border: 3px solid var(--blue);
+          outline: 0;
+        }
+      }
 
       span {
         color: var(--blue);
@@ -62,7 +96,7 @@
     }
 
     &__footer {
-      display: none;
+      //display: none;
       .buttons {
         display: flex;
         align-items: center;

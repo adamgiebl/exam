@@ -1,4 +1,4 @@
-from bottle import get, request, response, view
+from bottle import get, redirect, request, response, view
 from src.database.interface import DBInterface
 from src.decorators.authenticate import authenticate
 from src.decorators.is_fetch import is_fetch
@@ -28,26 +28,36 @@ def _(username):
 
   query_users = "SELECT * FROM users"
 
-  users = db.fetch_all(query_users, close_connection=False)
+  reload = bool(request.query.get('reload-jwt', None))
+  print("Should reload")
+  print(reload)
 
-  print(request.query.get('reload-jwt', None))
-  if (request.query.get('reload-jwt', None)):
+  users = db.fetch_all(query_users, close_connection=not reload)
+
+  if (reload):
     print("Generating new JWT")
     query = "SELECT * FROM users user WHERE user.id = ?"
     user = db.fetch_one(query, (request.user["id"],))
 
+    print(user)
+
+    print(bool(user))
+
     if (bool(user)):
+      print("SET COOKIE")
       user_without_password = without_keys(user, {'password'})
       encoded_jwt = encode_jwt(user_without_password)
-      response.set_cookie("jwt", encoded_jwt)
+      response.set_cookie("jwt", encoded_jwt, path="/")
       user = user_without_password
+      response.status = 200
+
+      redirect(f'/profile/{username}')
 
     if (db.exception):
-      print(db.exception)
       response.status = 500
       return "Something went wrong"
   
   if (bool(request.user)):
-    return dict(posts=posts, user=user, people=users, person=person, is_fetch=request.is_fetch)
+    return dict(posts=posts, user=user, people=users, person=person, is_fetch=request.is_fetch, following_ids=[])
   else:
-    return dict(posts=posts, person=person, people=users, is_fetch=request.is_fetch)
+    return dict(posts=posts, person=person, people=users, is_fetch=request.is_fetch, following_ids=[])

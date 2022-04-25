@@ -1,9 +1,11 @@
 % if get("people", False):
 <aside class="people">
   <h2 class="people__heading">Who to follow</h2>
-  % for person in people:
-    <article class="person">
-      <div class="color" style="--color: {{ person['hex_color'] }}; --url: url('/images/{{ person['image'] }}')"></div>
+  % for person in list(filter(lambda d: d['id'] not in following_ids, people)):
+    <article class="person {{ not get('user') or 'wrap-text' }}">
+      <a class="name" href="/profile/{{ person['username'] }}" onclick="spa(this); return false" >
+        <div class="color" style="--color: {{ person['hex_color'] }}; --url: url('/images/{{ person['image'] }}')"></div>
+      </a>
       <div class="text">
         <a class="name" href="/profile/{{ person['username'] }}" onclick="spa(this); return false" >{{ person["first_name"] }} {{ person["last_name"] }}</a>
         <div class="username">@{{ person["username"] }}</div>
@@ -14,10 +16,27 @@
           <div class="loader"><svg  viewBox="25 25 50 50">
             <circle r="20" cy="50" cx="50"></circle>
           </svg></div>
+          <svg class="done-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z"/></svg>
         </button>
       % end
     </article>
   % end
-  <a class="people__link" href="#">Show more</a>
+  <span class="people__link">Show more</span>
+
+  % if get("following", False):
+    <h2 class="people__heading" style="margin-top: 40px;">You're following</h2>
+    % for person in following:
+      <article class="person">
+        <a class="name" href="/profile/{{ person['username'] }}" onclick="spa(this); return false" ></a>
+          <div class="color" style="--color: {{ person['hex_color'] }}; --url: url('/images/{{ person['image'] }}')"></div>
+        </a>
+        <div class="text">
+          <a class="name" href="/profile/{{ person['username'] }}" onclick="spa(this); return false" >{{ person["first_name"] }} {{ person["last_name"] }}</a>
+          <div class="username">@{{ person["username"] }}</div>
+        </div>
+      </article>
+    % end
+  % end
+  
 </aside>
 % end

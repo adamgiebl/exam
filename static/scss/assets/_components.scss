@@ -144,9 +144,35 @@
     cursor: pointer;
     transition: transform 0.15s;
     margin-bottom: 0;
+
+    .done-icon {
+      display: none;
+      width: 20px;
+      height: 20px;
+    }
+
+    &.done {
+      color: var(--blue);
+      background: #252833;
+      height: 34px;
+      padding: 0 10px;
+
+      .done-icon {
+        display: block;
+      }
+
+      span {
+        display: none;
+      }
+    }
   }
 
   &:hover {
+    color: var(--blue);
+    background: #252833;
+  }
+
+  &.active {
     color: var(--blue);
     background: #252833;
   }

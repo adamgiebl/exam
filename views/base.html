@@ -24,7 +24,7 @@
               fill="currentColor"
               d="M7.291 20.824L2 22l1.176-5.291A9.956 9.956 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10a9.956 9.956 0 0 1-4.709-1.176zM7 12a5 5 0 0 0 10 0h-2a3 3 0 0 1-6 0H7z"
             /></svg
-        ></a>
+        > Bitter <span>(Better twitter)</span></a>
         <div class="navigation">
           % if get("user", False):
             <nav>
@@ -33,7 +33,7 @@
                 Home
               </a>
               % if user["role"] == "admin":
-                <a class="navbar-item has-icon" href="/users" onclick="spa(this); return false">
+                <a class="navbar-item has-icon" href="/admin" onclick="spa(this); return false">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M20 22H4v-2a5 5 0 0 1 5-5h6a5 5 0 0 1 5 5v2zm-8-9a6 6 0 1 1 0-12 6 6 0 0 1 0 12z"/></svg>
                   Admin
                 </a>

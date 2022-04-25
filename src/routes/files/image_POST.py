@@ -11,7 +11,7 @@ from src.decorators.authenticate import authenticate
 @authenticate()
 def _():
   image = request.files.get("my_image")
-  _, file_extension = os.path.splitext(image.filename)
+  file_name, file_extension = os.path.splitext(image.filename)
   path = "static/images"
   
   # Validate extension
@@ -21,12 +21,14 @@ def _():
   # overwrite jpg to jpeg so imghdr will pass validation
   if file_extension == ".jpg": file_extension = ".jpeg"
 
-  image_name = request.user["username"] + file_extension
+  image_name = request.user["username"] + "_" + file_name + file_extension
 
   try:
     os.remove(f"{path}/{image_name}")
   except:
     print("Couldn't remove")
+
+  print(image_name);
 
   image.save(f"{path}/{image_name}")
 
@@ -52,7 +54,6 @@ def _():
   db.execute(query_set_image, (image_name, request.user["id"]))
 
   if (db.exception):
-    print(db.exception)
     response.status = 500
     return "Something went wrong"
   

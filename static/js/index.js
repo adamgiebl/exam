@@ -1,91 +1,60 @@
-const form = document.querySelector("#post-form");
-//const fakePostsContainer = document.querySelector("#fake-posts-container");
-const postsContainer = document.querySelector("#posts-container");
-const postTemplate =
-  document.querySelector("#post-template") &&
-  document.querySelector("#post-template").content;
+const onPostFormSubmit = (form) => {
+  const postsContainer = document.querySelector("#posts-container");
+  const postTemplate =
+    document.querySelector("#post-template") &&
+    document.querySelector("#post-template").content;
 
-if (postsContainer && form) {
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const formData = new FormData(form);
-    fetch(form.action, {
-      method: "post",
-      body: JSON.stringify(Object.fromEntries(formData)),
-      headers: {
-        "Content-Type": "application/json",
-      },
+  const formData = new FormData(form);
+
+  const data = Object.fromEntries(formData);
+
+  if (formData.get("text").length < 1) {
+    document.querySelector("#post-error-length").classList.remove("hidden");
+    return;
+  }
+
+  document.querySelector("#post-error-length").classList.add("hidden");
+
+  console.log(data);
+  fetch(form.action, {
+    method: "post",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then(async (result) => {
+      if (result.ok) {
+        const postId = await result.text();
+        const postClone = postTemplate.cloneNode(true);
+        const postElement = postClone.firstElementChild;
+
+        const postContent = postClone.querySelector(".post__content");
+
+        postContent.textContent = formData.get("text");
+
+        postClone.querySelector(".post").id = postId;
+
+        const buttonDelete = postClone.querySelector(".button--delete");
+
+        buttonDelete.addEventListener("click", () => deletePost(postId));
+
+        postsContainer.prepend(postClone);
+
+        form.reset();
+
+        highlightHashtags();
+
+        animate(postElement);
+      }
     })
-      .then(async (result) => {
-        if (result.ok) {
-          const postId = await result.text();
-          const postClone = postTemplate.cloneNode(true);
-          const postElement = postClone.firstElementChild;
-
-          const postContent = postClone.querySelector(".post__content");
-          const postTextarea = postClone.querySelector(
-            ".post__textarea .textarea"
-          );
-
-          postContent.textContent = formData.get("text");
-
-          postTextarea.textContent = formData.get("text");
-
-          postClone.querySelector(".post").id = postId;
-
-          const buttonLabel = postClone.querySelector(".button--edit__label");
-          const buttonEdit = postClone.querySelector(".button--edit");
-          const buttonDelete = postClone.querySelector(".button--delete");
-
-          buttonEdit.addEventListener("click", (e) => {
-            buttonLabel.textContent = "Save";
-            buttonEdit.classList.add("active");
-            postContent.style.display = "none";
-            postTextarea.parentElement.style.display = "block";
-          });
-
-          buttonDelete.addEventListener("click", async (e) => {
-            const response = await fetch(`/posts/delete/${postId}`, {
-              method: "DELETE",
-            });
-
-            if (response.ok) {
-              document.querySelector(`[id='${postId}']`).remove();
-            }
-          });
-
-          postsContainer.prepend(postClone);
-
-          form.reset();
-
-          highlightHashtags();
-
-          animate(postElement);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  });
-} else {
-  console.log("No posts container");
-  form &&
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      fetch(form.action, {
-        method: "post",
-        body: JSON.stringify(Object.fromEntries(formData)),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then(() => {
-        document.location.reload();
-      });
+    .catch((error) => {
+      console.error(error);
     });
-}
+};
 
 const animate = (postElement) => {
+  const postsContainer = document.querySelector("#posts-container");
   const startPos = document
     .querySelector("#submit-button")
     .getBoundingClientRect();
@@ -128,4 +97,4 @@ const highlightHashtags = () => {
   });
 };
 
-highlightHashtags();
+//highlightHashtags();

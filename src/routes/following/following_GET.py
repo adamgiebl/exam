@@ -20,4 +20,4 @@ def _():
     response.status = 500
     return 'Something went wrong'
 
-  return dict(users=people, user=request.user, is_fetch=request.is_fetch)
+  return dict(users=people, user=request.user, is_fetch=request.is_fetch, title="You're following")

@@ -1,6 +1,4 @@
-from pprint import pprint
-
-from bottle import delete, response
+from bottle import delete, request, response
 from src.database.interface import DBInterface
 from src.decorators.authenticate import authenticate
 
@@ -9,7 +7,12 @@ from src.decorators.authenticate import authenticate
 @authenticate()
 def _(post_id):
   db = DBInterface()
-  db.execute("DELETE FROM posts WHERE posts.id = ?", (post_id,))
+
+  if (request.user["role"] == 'admin'):
+    db.execute("DELETE FROM posts WHERE posts.id = ?", (post_id, ))
+  else:
+    db.execute("DELETE FROM posts WHERE posts.id = ? AND posts.user_id = ?", (post_id, request.user["id"]))
+  
   
   if (not db.exception and db.cursor.rowcount > 0):
     return 'Deleted'

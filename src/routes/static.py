@@ -13,6 +13,10 @@ def _():
 def _():
   return static_file("/static/js/file.js", root=".")
 
+@get("/validator.js")
+def _():
+  return static_file("/static/js/validator.js", root=".")
+
 @get("/images/<image_name>")
 def _(image_name):
   return static_file(image_name, root="./static/images")

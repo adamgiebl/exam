@@ -6,7 +6,6 @@ from bottle import post, redirect, request
 from src.database.interface import DBInterface
 from src.decorators.validate import validate
 from src.schemas.signup import SignupUserSchema
-from src.utils import Fore, ppprint
 
 
 @post("/signup")
@@ -22,12 +21,11 @@ def _():
 
   db = DBInterface()
 
-  query = "INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
-  db.execute(query, (user_id, user["username"], user["first_name"], user["email"], user["last_name"], user["password"], hex_color, created_at))
+  query = "INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+  db.execute(query, (user_id, user["username"], user["first_name"], user["email"], user["last_name"], user["password"], hex_color, created_at, None, "user", user["bio"]))
 
 
   if (db.exception):
-    ppprint(db.exception, Fore.RED)
     return redirect(f"/signup?error=already_exists")
 
   return redirect('/')

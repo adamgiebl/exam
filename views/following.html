@@ -12,7 +12,7 @@
   <a href="/" class="spa-modal-close-layer" onclick="spa(this); return false"></a>
   <main class="modal modal-following" data-spa_url="/following" data-spa_title="My Posts" data-spa_modal>
     <section class="people">
-      <h2 class="people__heading">Following</h2>
+      <h2 class="people__heading">{{title}}</h2>
       % for person in users:
         <article class="person">
           <div class="color" style="--color: {{ person['hex_color'] }}; --url: url('/images/{{ person['image'] }}')"></div>

@@ -1,9 +1,9 @@
 % if not is_fetch:
   % include("base", title="Twitter - Log in")
 % end
-<main class="content" data-spa_url="/login" data-spa_title="Login">
+<main class="content" data-spa_url="/login" data-spa_title="Login" >
   <h1>Log in</h1>
-  <form action="/login" method="post" class="form">
+  <form action="/login" class="form" onsubmit="return validate(this)" method="post">
     <div class="field">
       <label for="email">Email</label>
       <div class="control">
@@ -13,8 +13,12 @@
           id="email"
           placeholder="johndoe@email.com"
           class="input"
+          data-validate="email"
+          value="{{ get('email', '') }}"
         />
+        <span class="error hidden">Not a valid email</span>
       </div>
+      
     </div>
     <div class="field">
       <label for="password">Password</label>
@@ -25,14 +29,24 @@
           id="password"
           placeholder="**********"
           class="input"
+          data-validate="str"
+          data-min="1"
+          data-max="50"
         />
+        <span class="error hidden">You need to provide a password</span>
       </div>
     </div>
+    % if get('error', '') == "credentials":
+      <span class="error">
+        Incorrect email or password
+      </span>
+    % end 
     <div class="field">
       <div class="control">
-        <button class="button button--primary"><span>Log in</span></button>
+        <button class="button button--primary" type="submit"><span>Log in</span></button>
       </div>
     </div>
+   
   </form>
 </main>
 % if not is_fetch:

@@ -1,0 +1,68 @@
+% import datetime
+% import timeago
+
+
+% now = datetime.datetime.now()
+
+% if not is_fetch:
+  % include("base", title="Admin panel")
+% end
+<main  data-spa_url="/admin" data-spa_title="Admin panel">
+  <h1>Users:</h1>
+  % if not users:
+  <div class="table users">No Users</div>
+  % else:
+  <table class="table is-fullwidth users">
+    <thead>
+      <tr>
+        <th>Color</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      % for user in users:
+      <tr>
+        <td class="color" style="--color: {{ user['hex_color'] }}; --url: url('/images/{{ user['image'] }}')"></td>
+        <td>{{ user['first_name'] }}</td>
+        <td>{{ user['last_name'] }}</td>
+        <td>{{ user['email'] }}</td>
+        <td>{{ user['role'] }}</td>
+      </tr>
+      % end
+    </tbody>
+  </table>
+  % end
+  <h1>Posts:</h1>
+  <section class="posts posts--editable">
+    % if not posts:
+      <article class="post post--empty">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm6 9a3 3 0 0 0 6 0h5V5H4v7h5z"/></svg>
+        <span>No posts yet</span>
+      </article>
+    % else:
+      % for post in posts:
+        <article class="post" id="{{ post['id'] }}">
+          <div class="post__header">
+            <div class="color" style="--color: {{ post['hex_color'] }}; --url: url('/images/{{ post['image'] }}')"></div>
+            <a class="name" href="/profile/{{ post['username'] }}" onclick="spa(this); return false">{{ post["first_name"] }} {{ post["last_name"] }}</a>
+            <div class="time-created" title="{{ post['created_at'] }}">
+              {{ timeago.format(int(float(post["created_at"])), now) }}
+            </div>
+          </div>
+          <div class="post__content">{{ post["text"] }}</div>
+          <div class="post__footer">
+            <div class="buttons">
+              <button onclick="deletePost('{{ post['''id'''] }}')" class="button-gray has-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M17 6h5v2h-2v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8H2V6h5V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3zm1 2H6v12h12V8zm-9 3h2v6H9v-6zm4 0h2v6h-2v-6zM9 4v2h6V4H9z"/></svg> Remove</button>
+            </div>
+          </div>
+        </article>
+      % end
+    % end
+  </section>
+</main>
+% if not is_fetch:
+  % include("footer")
+% end

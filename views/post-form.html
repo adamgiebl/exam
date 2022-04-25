@@ -1,6 +1,6 @@
 <section class="post-form">
   <div class="user-color" style="--color: {{ user['hex_color'] }}; --url: url('/images/{{ user['image'] }}')"></div>
-  <form action="/posts" method="post" id="post-form">
+  <form action="/posts" method="post" id="post-form" onsubmit="onPostFormSubmit(this); return false;">
     <div class="field">
       <div class="control">
         <input
@@ -12,6 +12,7 @@
           class="input"
         />
       </div>
+      <span class="error hidden" id="post-error-length">Post needs to have atleast 1 character</span>
     </div>
     <div class="field">
       <div class="control">
@@ -22,20 +23,28 @@
   <template id="post-template">
     <article class="post">
       <div class="post__header">
-        <div class="color" style="--color: {{ user['hex_color'] }}"></div>
+        <a class="image" href="/profile/{{ user['username'] }}" onclick="spa(this); return false">
+          <div class="color" style="--color: {{ user['hex_color'] }}; --url: url('/images/{{ user['image'] }}')"></div>
+        </a>
+       
         <h3 class="name">{{ user['first_name' ]}} {{ user['last_name' ]}}</h3>
         <div class="time-created">
           just now
         </div>
       </div>
       <div class="post__content"></div>
-      <div class="post__textarea">
-        <textarea class="textarea" rows="2"></textarea>
-      </div>
+      <input class="input post__content post__content--edit" type="text" value="value" />
       <div class="post__footer">
         <div class="buttons">
-          <button class="button-gray has-icon button--edit"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M6.414 16L16.556 5.858l-1.414-1.414L5 14.586V16h1.414zm.829 2H3v-4.243L14.435 2.322a1 1 0 0 1 1.414 0l2.829 2.829a1 1 0 0 1 0 1.414L7.243 18zM3 20h18v2H3v-2z"/></svg><span class="button--edit__label">Edit</span></button>
-          <button class="button-gray has-icon button--delete"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M17 6h5v2h-2v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8H2V6h5V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3zm1 2H6v12h12V8zm-9 3h2v6H9v-6zm4 0h2v6h-2v-6zM9 4v2h6V4H9z"/></svg> Delete</button>  
+          <button onclick="togglePostEdit(this)" class="button-gray has-icon button--edit">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M6.414 16L16.556 5.858l-1.414-1.414L5 14.586V16h1.414zm.829 2H3v-4.243L14.435 2.322a1 1 0 0 1 1.414 0l2.829 2.829a1 1 0 0 1 0 1.414L7.243 18zM3 20h18v2H3v-2z"/></svg>
+            <span class="button--edit__label">Edit</span>
+          </button>
+          <button onclick="confirmEditPost(this)" class="button-gray has-icon button--confirm">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z"/></svg>
+            <span class="button--edit__label">Confirm</span>
+          </button>
+          <button class="button-gray has-icon button--delete"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M17 6h5v2h-2v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8H2V6h5V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3zm1 2H6v12h12V8zm-9 3h2v6H9v-6zm4 0h2v6h-2v-6zM9 4v2h6V4H9z"/></svg> Remove</button>
         </div>
       </div>
     </article>

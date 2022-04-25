@@ -20,7 +20,7 @@ def _():
   if (bool(user)):
     user_without_password = without_keys(user, {'password'})
     encoded_jwt = encode_jwt(user_without_password)
-    response.set_cookie("jwt", encoded_jwt)
+    response.set_cookie("jwt", encoded_jwt, path="/")
     response.status = 200
     return redirect('/')
 

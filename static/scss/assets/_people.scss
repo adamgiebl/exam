@@ -1,4 +1,7 @@
 .people-wrapper {
+  position: sticky;
+  top: 20px;
+
   &--mobile {
     display: none;
     margin-top: 20px;
@@ -38,7 +41,19 @@
     display: flex;
     margin-bottom: 15px;
     align-items: center;
+
+    &.wrap-text {
+      .text {
+        .name {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 128px;
+          overflow: hidden;
+        }
+      }
+    }
     .color {
+      min-width: 40px;
       width: 40px;
       height: 40px;
       border-radius: 50%;
@@ -58,7 +73,11 @@
 
       .name {
         font-weight: 700;
-        font-size: 18px;
+        color: ghostwhite;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 17px;
+        display: block;
         color: ghostwhite;
         text-decoration: none;
       }

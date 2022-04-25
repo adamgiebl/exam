@@ -6,4 +6,6 @@ from src.decorators.is_fetch import is_fetch
 @view("login")
 @is_fetch()
 def _():
-    return dict(is_fetch=request.is_fetch)
+  error = request.params.get("error")
+  email = request.params.get("email", "")
+  return dict(is_fetch=request.is_fetch, error=error, email=email)

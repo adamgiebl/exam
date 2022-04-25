@@ -25,22 +25,7 @@
     </article>
     % else: 
       % for post in posts:
-      <article class="post">
-        <div class="post__header">
-          <div
-            class="color"
-            style="--color: {{ post['hex_color'] }}; --url: url('/images/{{ post['image'] }}')"
-          ></div>
-          <a class="name" href="/profile/{{ post['username'] }}" onclick="spa(this); return false">
-            {{ post["first_name"] }} {{ post["last_name"] }}
-          </a>
-          <div class="time-created" title="{{ post['created_at'] }}">
-            {{ timeago.format(int(post["created_at"]), now) }}
-          </div>
-        </div>
-        <div class="post__content">{{ post["text"] }}</div>
-        <div class="post__footer"></div>
-      </article>
+        % include("post")
       % end 
     % end
   </section>
